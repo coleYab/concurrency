@@ -12,7 +12,7 @@ import (
 
 // Constants
 const (
-	concurrencyLimit = 500  // Reduced concurrency limit
+	concurrencyLimit = 1000  // Reduced concurrency limit
 	maxRetries       = 3    // Maximum retries for failed requests
 	requestTimeout   = 30 * time.Second // Increased timeout
 )
@@ -98,8 +98,8 @@ func fetchPokemon(id int, wg *sync.WaitGroup, semaphore chan struct{}, results c
 func main() {
     start := time.Now()
 	// Generate a list of 1000 Pokémon IDs (1 to 1000)
-	pokemonIDs := make([]int, 1000)
-	for i := 0; i < 1000; i++ {
+	pokemonIDs := make([]int, 10000)
+	for i := 0; i < 10000; i++ {
 		pokemonIDs[i] = i + 1
 	}
 
@@ -127,7 +127,7 @@ func main() {
 	}
 
 	// Rate limiter to avoid overwhelming the API
-	rateLimiter := time.Tick(10 * time.Millisecond) // Allow 10 requests per second
+	rateLimiter := time.Tick(1 * time.Millisecond) // Allow 10 requests per second
 
 	// Start a goroutine for each Pokémon ID
 	for _, id := range pokemonIDs {
