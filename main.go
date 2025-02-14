@@ -96,6 +96,7 @@ func fetchPokemon(id int, wg *sync.WaitGroup, semaphore chan struct{}, results c
 }
 
 func main() {
+    for true {
     start := time.Now()
 	// Generate a list of 1000 Pokémon IDs (1 to 1000)
 	pokemonIDs := make([]int, 10000)
@@ -148,4 +149,5 @@ func main() {
 	}
 
     fmt.Printf("Total recived data was: %v, in %v seconds", i + 1, time.Since(start))
+    }
 }
